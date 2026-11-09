@@ -1,0 +1,25 @@
+# KNN Classification
+
+library(class)
+
+data <- data.frame(
+  Age=c(5,6,7,8,9,5,6,7,8,9),
+  Gender=c(1,0,1,0,1,0,1,0,1,0),
+  Sport=factor(c("Cricket","Football","Cricket","Football",
+                 "Cricket","Football","Cricket","Football",
+                 "Cricket","Football"))
+)
+
+# Standardize features
+x <- scale(data[,1:2])
+y <- data$Sport
+
+# New observation
+test <- scale(matrix(c(5,1), nrow=1),
+              center=attr(x,"scaled:center"),
+              scale=attr(x,"scaled:scale"))
+
+# KNN prediction
+pred <- knn(x, test, y, k=3)
+
+cat("Predicted Sport:", as.character(pred), "\n")
